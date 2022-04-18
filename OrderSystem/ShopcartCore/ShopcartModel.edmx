@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShopcartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="drink_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="drink_price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_rowid" Type="int" Nullable="false" />
+          <Property Name="order_time" Type="datetime" />
+          <Property Name="is_delete" Type="bit" Nullable="false" />
+          <Property Name="is_order_complete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sale_detail">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sale_rowid" Type="int" Nullable="false" />
+          <Property Name="product_rowid" Type="int" Nullable="false" />
+          <Property Name="quatity" Type="int" Nullable="false" />
+          <Property Name="is_delete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ShopcartModelStoreContainer">
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sale" EntityType="Self.sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sale_detail" EntityType="Self.sale_detail" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopcartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="drink_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="drink_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_rowid" Type="Int32" Nullable="false" />
+          <Property Name="order_time" Type="DateTime" Precision="3" />
+          <Property Name="is_delete" Type="Boolean" Nullable="false" />
+          <Property Name="is_order_complete" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sale_detail">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sale_rowid" Type="Int32" Nullable="false" />
+          <Property Name="product_rowid" Type="Int32" Nullable="false" />
+          <Property Name="quatity" Type="Int32" Nullable="false" />
+          <Property Name="is_delete" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ShopcartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="customer" EntityType="Self.customer" />
+          <EntitySet Name="product" EntityType="Self.product" />
+          <EntitySet Name="sale" EntityType="Self.sale" />
+          <EntitySet Name="sale_detail" EntityType="Self.sale_detail" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopcartModelStoreContainer" CdmEntityContainer="ShopcartEntities">
+          <EntitySetMapping Name="customer">
+            <EntityTypeMapping TypeName="ShopcartModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="ShopcartModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+                <ScalarProperty Name="drink_name" ColumnName="drink_name" />
+                <ScalarProperty Name="drink_price" ColumnName="drink_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sale">
+            <EntityTypeMapping TypeName="ShopcartModel.sale">
+              <MappingFragment StoreEntitySet="sale">
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+                <ScalarProperty Name="customer_rowid" ColumnName="customer_rowid" />
+                <ScalarProperty Name="order_time" ColumnName="order_time" />
+                <ScalarProperty Name="is_delete" ColumnName="is_delete" />
+                <ScalarProperty Name="is_order_complete" ColumnName="is_order_complete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sale_detail">
+            <EntityTypeMapping TypeName="ShopcartModel.sale_detail">
+              <MappingFragment StoreEntitySet="sale_detail">
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+                <ScalarProperty Name="sale_rowid" ColumnName="sale_rowid" />
+                <ScalarProperty Name="product_rowid" ColumnName="product_rowid" />
+                <ScalarProperty Name="quatity" ColumnName="quatity" />
+                <ScalarProperty Name="is_delete" ColumnName="is_delete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
